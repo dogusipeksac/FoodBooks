@@ -1,10 +1,11 @@
 package com.example.foodbooks.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodbooks.model.Food
 
-class FoodDetailViewModel :ViewModel() {
+class FoodDetailViewModel(application: Application) :BaseViewModel(application) {
     val foodLiveData=MutableLiveData<Food>()
 
     fun roomDataTake(){
