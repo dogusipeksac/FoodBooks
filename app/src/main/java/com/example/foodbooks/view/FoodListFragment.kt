@@ -41,11 +41,19 @@ class FoodListFragment : Fragment() {
         viewModel.refreshData()
         food_listRecyclerView.layoutManager=LinearLayoutManager(context)
         food_listRecyclerView.adapter=recyclerViewFoodAdapter
+        food_listSwipeRefreshLayout.setOnRefreshListener {
+            food_listProgressBar.visibility=View.VISIBLE
+            food_failed_messageTextView.visibility=View.GONE
+            food_listRecyclerView.visibility=View.GONE
+            viewModel.refreshData()
+            food_listSwipeRefreshLayout.isRefreshing=false
+        }
+
         observeLiveData()
     }
 
     fun observeLiveData(){
-        viewModel.foods.observe(this, Observer { foods ->
+        viewModel.foods.observe(viewLifecycleOwner, Observer { foods ->
             foods?.let {
                 food_listRecyclerView.visibility=View.VISIBLE
                 recyclerViewFoodAdapter.setFoodList(foods)

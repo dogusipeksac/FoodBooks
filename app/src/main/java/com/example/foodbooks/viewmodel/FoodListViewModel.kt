@@ -3,6 +3,12 @@ package com.example.foodbooks.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodbooks.model.Food
+import com.example.foodbooks.service.FoodApiService
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 
 class FoodListViewModel : ViewModel(){
 
@@ -10,14 +16,37 @@ class FoodListViewModel : ViewModel(){
     val foodErrorMessage=MutableLiveData<Boolean>()
     val foodLoading=MutableLiveData<Boolean>()
 
-    fun refreshData(){
-        val banana=Food("banana","10","20","30","40","www.test.com")
-        val pear=Food("pear","101","210","320","140","www.test.com")
-        val apple=Food("apple","120","220","310","240","www.test.com")
+    private val foodApiService=FoodApiService()
+    private val disposable=CompositeDisposable()
 
-        val foodLists= arrayListOf<Food>(banana,pear,apple)
-        foods.value=foodLists
-        foodErrorMessage.value=false
-        foodLoading.value=false
+
+    fun refreshData(){
+        dataGetFromInternet()
     }
+    private fun dataGetFromInternet(){
+        foodLoading.value=true
+
+        //Input output default ui thread
+        disposable.add(
+            foodApiService.getData()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<Food>>(){
+                    override fun onSuccess(t: List<Food>) {
+                        foods.value=t
+                        foodErrorMessage.value=false
+                        foodLoading.value=false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        foodErrorMessage.value=true
+                        foodLoading.value=false
+                        e.printStackTrace()
+                    }
+
+                })
+
+        )
+    }
+
 }

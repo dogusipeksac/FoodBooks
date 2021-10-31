@@ -7,6 +7,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodbooks.R
 import com.example.foodbooks.model.Food
+import com.example.foodbooks.util.downloadImage
+import com.example.foodbooks.util.placeHolderDoIt
 import com.example.foodbooks.view.FoodListFragmentDirections
 import kotlinx.android.synthetic.main.item_food.view.*
 
@@ -27,7 +29,11 @@ class FoodAdapter(val foodList:ArrayList<Food>) : RecyclerView.Adapter<FoodAdapt
             val action=FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(3)
             Navigation.findNavController(it).navigate(action)
         }
+        holder.itemView.food_imageview.downloadImage(
+            foodList[position].imageUrl,
+            placeHolderDoIt(holder.itemView.context))
     }
+
 
     override fun getItemCount(): Int {
         return foodList.size
