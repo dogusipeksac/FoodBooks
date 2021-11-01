@@ -51,8 +51,10 @@ dependencies {
     def rxAndroidVersion = '2.1.1'
     def roomVersion = '2.3.0'
     def navVersion = '2.3.5'
+    def preference_version = "1.1.1"
 
-    implementation 'androidx.core:core-ktx:1.6.0'
+
+    implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
@@ -65,7 +67,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -75,4 +77,5 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation "com.android.support:design:$supportVersion"
+    implementation "androidx.preference:preference-ktx:$preference_version"
 }

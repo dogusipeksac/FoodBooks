@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.foodbooks.R
+import com.example.foodbooks.util.downloadImage
+import com.example.foodbooks.util.placeHolderDoIt
 import com.example.foodbooks.viewmodel.FoodDetailViewModel
 import kotlinx.android.synthetic.main.fragment_food_detail.*
 
@@ -36,10 +38,10 @@ class FoodDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             foodId=FoodDetailFragmentArgs.fromBundle(it).foodId
-            println(foodId)
+
         }
         viewModel=ViewModelProviders.of(this).get(FoodDetailViewModel::class.java)
-        viewModel.roomDataTake()
+        viewModel.roomDataTake(foodId)
         observeLiveData()
 
     }
@@ -47,11 +49,15 @@ class FoodDetailFragment : Fragment() {
     fun observeLiveData(){
         viewModel.foodLiveData.observe(viewLifecycleOwner, Observer { food->
             food?.let {
-                food_detail_name_textview.text=it.food_name
-                food_detail_calorie_textview.text=it.calorie
-                food_detail_carbohydrate_textview.text=it.carbohydrate
-                food_detail_protein_textview.text=it.protein
-                food_detail_oil_textview.text=it.oil
+                food_detail_name_textview.text=food.food_name
+                food_detail_calorie_textview.text=food.calorie
+                food_detail_carbohydrate_textview.text=food.carbohydrate
+                food_detail_protein_textview.text=food.protein
+                food_detail_oil_textview.text=food.oil
+                context?.let {
+                    food_detail_imageview.downloadImage(food.imageUrl, placeHolderDoIt(it))
+                }
+
 
             }
 

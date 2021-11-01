@@ -26,7 +26,7 @@ class FoodAdapter(val foodList:ArrayList<Food>) : RecyclerView.Adapter<FoodAdapt
         holder.itemView.food_name_textview.text=foodList[position].food_name
         holder.itemView.food_calorie_textview.text=foodList[position].calorie
         holder.itemView.setOnClickListener{
-            val action=FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(3)
+            val action=FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(foodList[position].uuid)
             Navigation.findNavController(it).navigate(action)
         }
         holder.itemView.food_imageview.downloadImage(

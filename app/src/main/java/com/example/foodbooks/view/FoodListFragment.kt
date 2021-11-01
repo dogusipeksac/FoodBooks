@@ -45,7 +45,7 @@ class FoodListFragment : Fragment() {
             food_listProgressBar.visibility=View.VISIBLE
             food_failed_messageTextView.visibility=View.GONE
             food_listRecyclerView.visibility=View.GONE
-            viewModel.refreshData()
+            viewModel.refreshFromInternet()
             food_listSwipeRefreshLayout.isRefreshing=false
         }
 

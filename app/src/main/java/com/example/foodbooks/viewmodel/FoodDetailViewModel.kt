@@ -4,12 +4,17 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.foodbooks.model.Food
+import com.example.foodbooks.service.FoodDatabase
+import kotlinx.coroutines.launch
 
 class FoodDetailViewModel(application: Application) :BaseViewModel(application) {
     val foodLiveData=MutableLiveData<Food>()
 
-    fun roomDataTake(){
-        val banana=Food("banana","10","20","30","40","www.test.com")
-        foodLiveData.value=banana
+    fun roomDataTake(uuid:Int){
+        launch {
+            val dao=FoodDatabase(getApplication()).foodDao()
+            val food=dao.getFood(uuid)
+            foodLiveData.value=food
+        }
     }
 }
