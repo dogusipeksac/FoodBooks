@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--dataBinding-->
+    <data>
+
+        <variable
+            name="chosenFood"
+            type="com.example.foodbooks.model.Food"/>
+
+    </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -16,12 +24,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_vertical"
-
             android:layout_weight="1">
             <ImageView
+                android:downloadImageFromXml="@{chosenFood.imageUrl}"
                 android:id="@+id/food_detail_imageview"
                 android:layout_height="150dp"
-                android:src="@mipmap/ic_launcher"
                 android:padding="10dp"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
@@ -39,7 +46,7 @@
                 android:layout_margin="3dp"
                 android:padding="5dp"
                 android:layout_weight="0.5"
-                android:text="Besin ismini göstereceğiz"/>
+                android:text="@{chosenFood.food_name}"/>
             <TextView
                 android:id="@+id/food_detail_calorie_textview"
                 android:layout_weight="0.5"
@@ -50,7 +57,7 @@
                 android:textStyle="bold"
                 android:layout_margin="3dp"
                 android:textSize="15sp"
-                android:text="Besin kalorisini göstereceğiz"/>
+                android:text="@{chosenFood.calorie}"/>
             <TextView
                 android:id="@+id/food_detail_carbohydrate_textview"
                 android:layout_weight="0.5"
@@ -61,7 +68,7 @@
                 android:textStyle="bold"
                 android:layout_margin="3dp"
                 android:textSize="15sp"
-                android:text="Besin carbohydrate göstereceğiz"/>
+                android:text="@{chosenFood.carbohydrate}"/>
             <TextView
                 android:id="@+id/food_detail_protein_textview"
                 android:layout_weight="0.5"
@@ -72,7 +79,7 @@
                 android:textStyle="bold"
                 android:layout_margin="3dp"
                 android:textSize="15sp"
-                android:text="Besin protein göstereceğiz"/>
+                android:text="@{chosenFood.protein}"/>
             <TextView
                 android:id="@+id/food_detail_oil_textview"
                 android:layout_weight="0.5"
@@ -83,7 +90,7 @@
                 android:textStyle="bold"
                 android:layout_margin="3dp"
                 android:textSize="15sp"
-                android:text="Besin oil göstereceğiz"/>
+                android:text="@{chosenFood.oil}"/>
 
 
         </LinearLayout>

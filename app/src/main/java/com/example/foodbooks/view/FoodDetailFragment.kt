@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.foodbooks.R
+import com.example.foodbooks.databinding.FragmentFoodDetailBinding
 import com.example.foodbooks.util.downloadImage
 import com.example.foodbooks.util.placeHolderDoIt
 import com.example.foodbooks.viewmodel.FoodDetailViewModel
@@ -18,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_food_detail.*
 class FoodDetailFragment : Fragment() {
     private lateinit var viewModel:FoodDetailViewModel
     private var foodId=0
+    private lateinit var dataBinding: FragmentFoodDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +32,9 @@ class FoodDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_detail, container, false)
+        //data binding tanımlandı
+        dataBinding=DataBindingUtil.inflate(inflater,R.layout.fragment_food_detail,container,false)
+        return dataBinding.root
 
 
     }
@@ -49,14 +54,15 @@ class FoodDetailFragment : Fragment() {
     fun observeLiveData(){
         viewModel.foodLiveData.observe(viewLifecycleOwner, Observer { food->
             food?.let {
-                food_detail_name_textview.text=food.food_name
+                dataBinding.chosenFood=it
+             /*   food_detail_name_textview.text=food.food_name
                 food_detail_calorie_textview.text=food.calorie
                 food_detail_carbohydrate_textview.text=food.carbohydrate
                 food_detail_protein_textview.text=food.protein
                 food_detail_oil_textview.text=food.oil
                 context?.let {
                     food_detail_imageview.downloadImage(food.imageUrl, placeHolderDoIt(it))
-                }
+                }*/
 
 
             }
